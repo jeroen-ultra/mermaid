@@ -1,4 +1,5 @@
 import type { DiagramDB } from '../../diagram-api/types.js';
+import type { BaseDiagramConfig } from '../../config.type.js';
 import { getConfig } from '../../diagram-api/diagramAPI.js';
 import { log } from '../../logger.js';
 import {
@@ -90,7 +91,7 @@ class SwimlaneDB implements DiagramDB {
   });
 
   // Required DiagramDB methods
-  getConfig = () => config;
+  getConfig = (): BaseDiagramConfig | undefined => config as BaseDiagramConfig;
   setAccTitle = setAccTitle;
   getAccTitle = getAccTitle;
   setAccDescription = setAccDescription;
