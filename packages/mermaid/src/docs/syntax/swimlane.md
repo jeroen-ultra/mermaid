@@ -37,24 +37,28 @@ Within each lane, you can use standard flowchart syntax for nodes and edges:
 
 ### Node Types
 
+Currently, swimlane diagrams support rectangular nodes defined with square brackets:
+
 ```mermaid-example
 swimlane
     lane "Node Examples"
-        A[Rectangle]
-        B(Rounded Rectangle)
-        C{Diamond}
-        D((Circle))
+        A[Rectangle Node]
+        B[Another Node]
+        C[Third Node]
     end
 ```
 
+> **Note**: Future versions will support additional node shapes like rounded rectangles, diamonds, and circles.
+
 ### Edge Types
+
+Swimlane diagrams support basic arrow edges with optional labels:
 
 ```mermaid-example
 swimlane
     lane "Edge Examples"
-        A[Start] --> B[Arrow]
-        B -.-> C[Dotted]
-        C ==> D[Thick]
+        A[Start] --> B[Next]
+        B -->|Process| C[End]
     end
 ```
 
@@ -70,11 +74,11 @@ swimlane
     lane "Authentication Service"
         A --> C[Validate Credentials]
         C --> D[Generate JWT]
+        D --> B
     end
     lane "Database"
         C --> E[Check User]
         E --> C
-        D --> B
     end
 ```
 
@@ -113,7 +117,8 @@ swimlane
 
 ## Limitations
 
-- Currently supports basic flowchart node types (rectangles, circles, diamonds)
-- Edge styling is limited to basic arrow types
+- Currently supports only rectangular node types `[Node Text]`
+- Edge styling is limited to basic arrows `-->` with optional labels `-->|label|`
 - No support for subgraphs within lanes
 - Node positioning is automatic and cannot be manually adjusted
+- Empty lanes are supported but will display as blank rows

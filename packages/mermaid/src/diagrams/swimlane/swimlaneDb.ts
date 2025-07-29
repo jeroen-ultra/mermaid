@@ -47,23 +47,29 @@ class SwimlaneDB implements DiagramDB {
   };
 
   addVertex = (id: string, text: string, type: string, style?: string, classes?: string, dir?: string): void => {
-    const vertex: FlowVertex = {
-      id,
-      text,
-      type: type as any, // Cast to satisfy FlowVertex type requirements
-      domId: id,
-      labelType: 'text' as const,
-      styles: style ? [style] : [],
-      classes: classes ? [classes] : [],
-      dir: dir || '',
-    };
-    this.vertices.set(id, vertex);
-    
-    if (this.currentLane) {
-      this.currentLane.vertices.push(id);
+    // Only create vertex if it doesn't exist
+    if (!this.vertices.has(id)) {
+      const vertex: FlowVertex = {
+        id,
+        text,
+        type: type as any, // Cast to satisfy FlowVertex type requirements
+        domId: id,
+        labelType: 'text' as const,
+        styles: style ? [style] : [],
+        classes: classes ? [classes] : [],
+        dir: dir || '',
+      };
+      this.vertices.set(id, vertex);
+      
+      if (this.currentLane) {
+        this.currentLane.vertices.push(id);
+      }
+      
+      log.debug('Added vertex:', vertex, 'to lane:', this.currentLane?.id);
+    } else {
+      // Vertex already exists, don't add to current lane
+      log.debug('Vertex already exists:', id, 'not adding to current lane');
     }
-    
-    log.debug('Added vertex:', vertex, 'to lane:', this.currentLane?.id);
   };
 
   addEdge = (start: string, end: string, text?: string, type?: string): void => {
