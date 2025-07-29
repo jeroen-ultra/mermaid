@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Swimlane Diagram Implementation Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .diagram-container {
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Swimlane Diagram Implementation Test</h1>
+    
+    <h2>Example 1: Basic Swimlane Diagram</h2>
+    <div class="diagram-container">
+        <div id="diagram1" class="mermaid">
+            swimlane
+                lane "Frontend System"
+                    A[User Request] --> B[Validate Input]
+                end
+                lane "Backend System"
+                    B --> C[Process Request]
+                    C --> D[Business Logic]
+                end
+                lane "Database System"
+                    D --> E[Query Database]
+                    E --> F[Return Results]
+                end
+        </div>
+    </div>
+
+    <h2>Example 2: Cross-Lane Communication</h2>
+    <div class="diagram-container">
+        <div id="diagram2" class="mermaid">
+            swimlane
+                lane "User Interface"
+                    A[Login Form] --> B[Submit Credentials]
+                end
+                lane "Authentication Service"
+                    B --> C[Validate User]
+                    C --> D[Generate Token]
+                end
+                lane "User Management"
+                    D --> E[Update Last Login]
+                end
+                lane "Response"
+                    E --> F[Return Success]
+                end
+        </div>
+    </div>
+
+    <h2>Example 3: Simple Process Flow</h2>
+    <div class="diagram-container">
+        <div id="diagram3" class="mermaid">
+            swimlane
+                lane "Customer"
+                    A[Place Order] --> B[Receive Confirmation]
+                end
+                lane "Order System"
+                    A --> C[Process Payment]
+                    C --> D[Update Inventory]
+                end
+                lane "Fulfillment"
+                    D --> E[Ship Order]
+                    E --> B
+                end
+        </div>
+    </div>
+
+    <h2>Edge Cases Test</h2>
+    
+    <h3>Empty Lane Test</h3>
+    <div class="diagram-container">
+        <div id="diagram4" class="mermaid">
+            swimlane
+                lane "Active System"
+                    A[Process A] --> B[Process B]
+                end
+                lane "Inactive System"
+                end
+                lane "Another System"
+                    C[Process C]
+                end
+        </div>
+    </div>
+
+    <h3>Single Lane Test</h3>
+    <div class="diagram-container">
+        <div id="diagram5" class="mermaid">
+            swimlane
+                lane "Single System"
+                    A[Start] --> B[Process] --> C[End]
+                end
+        </div>
+    </div>
+
+    <h3>Complex Cross-Lane</h3>
+    <div class="diagram-container">
+        <div id="diagram6" class="mermaid">
+            swimlane
+                lane "System A"
+                    A1[Node A1] --> A2[Node A2]
+                end
+                lane "System B"
+                    A1 --> B1[Node B1]
+                    B1 --> A2
+                end
+                lane "System C"
+                    B1 --> C1[Node C1]
+                end
+        </div>
+    </div>
+
+    <!-- Try using npm installed mermaid -->
+    <script src="./node_modules/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        console.log('Mermaid version:', mermaid.version);
+        
+        // Initialize mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            logLevel: 'debug'
+        });
+        
+        console.log('Mermaid initialized');
+    </script>
+</body>
+</html>
